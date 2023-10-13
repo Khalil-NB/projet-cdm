@@ -4,17 +4,11 @@
 #trouve le nombre
 
 import random
-import os
-from os.path import exists
-import shelve
-import sys
-import subprocess
 
 #variable
 nombreEssais=0
 inconnu=random.randint(1,1000)
 essai=0
-print(inconnu)
 
 #definir verifie_essai
 def verifie_essai() :
@@ -39,12 +33,14 @@ while (essai != inconnu) :
         print("\n\nBravo bonne réponse! Votre nombre d'éssais est : %d "%nombreEssais)
         
 #recommencer?
-    recommencer=str(input(print("Voulez-vous relancer une nouvelle partie?\n")))
+        recommencer=str(input(print("Voulez-vous relancer une nouvelle partie?\n")))
 
-    if recommencer == "oui":
-       inconnu = random.randint(1,1000)
-      
-    else:
-        exit()        
+        if recommencer == "oui":
+           nombreEssais = 0
+           essais = 0
+           inconnu = random.randint(1,1000)
+          
+        else:
+            exit()        
 
       
