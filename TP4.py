@@ -1,4 +1,4 @@
-# Par Maxime Rault
+# Par Khalil Nait Bahloul avec l`aide de Maxime
 # TP4
 
 # import arcade and random
@@ -8,8 +8,8 @@ import random
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-COLORS = [arcade.color.RED, arcade.color.GREEN, arcade.color.BLUE, arcade.color.YELLOW, arcade.color.ORANGE, arcade.color.PURPLE]
-
+COULEURS = [arcade.color.ALABAMA_CRIMSON, arcade.color.AMBER, arcade.color.AO, arcade.color.AZURE, arcade.color.CADMIUM_ORANGE, arcade.color.BYZANTIUM]
+#definir la forme balle
 class Balle:
     def __init__(self, x, y):
         self.x = x
@@ -17,8 +17,8 @@ class Balle:
         self.change_x = random.uniform(-5, 5)
         self.change_y = random.uniform(-5, 5)
         self.rayon = random.randint(10, 30)
-        self.color = random.choice(COLORS)
-
+        self.couleur = random.choice(COULEURS)
+    #code pour le mouvement des formes
     def update(self):
         self.x += self.change_x
         self.y += self.change_y
@@ -36,10 +36,10 @@ class Balle:
         elif self.y > SCREEN_HEIGHT - self.rayon:
             self.y = SCREEN_HEIGHT - self.rayon
             self.change_y *= -1
-
+    #dessin de chaque "frame"
     def draw(self):
-        arcade.draw_circle_filled(self.x, self.y, self.rayon, self.color)
-
+        arcade.draw_circle_filled(self.x, self.y, self.rayon, self.couleur)
+#definir la forme rectangle
 class Rectangle:
     def __init__(self, x, y):
         self.x = x
@@ -48,9 +48,10 @@ class Rectangle:
         self.change_y = random.uniform(-5, 5)
         self.width = random.randint(20, 50)
         self.height = random.randint(20, 50)
-        self.color = random.choice(COLORS)
+        self.couleur = random.choice(COULEURS)
         self.angle = random.uniform(0, 360)
 
+    # code pour le mouvement des formes
     def update(self):
         self.x += self.change_x
         self.y += self.change_y
@@ -69,8 +70,9 @@ class Rectangle:
             self.y = SCREEN_HEIGHT - self.height / 2
             self.change_y *= -1
 
+    # dessin de chaque "frame"
     def draw(self):
-        arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, self.color, self.angle)
+        arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, self.couleur, self.angle)
 
 class MyGame(arcade.Window):
     def __init__(self):
@@ -90,19 +92,22 @@ class MyGame(arcade.Window):
         for rectangle in self.rectangles:
             rectangle.draw()
 
+    #Clique gauche et clique droit de la souris pour générer les cercles et rectangles
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
             self.balles.append(Balle(x, y))
+
         elif button == arcade.MOUSE_BUTTON_RIGHT:
             self.rectangles.append(Rectangle(x, y))
 
+    #Faire bouger les formes
     def update(self, delta_time):
         for balle in self.balles:
             balle.update()
 
         for rectangle in self.rectangles:
             rectangle.update()
-
+#lancer le jeu
 def main():
     my_game = MyGame()
     my_game.setup()
